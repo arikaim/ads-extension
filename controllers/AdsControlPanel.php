@@ -61,7 +61,7 @@ class AdsControlPanel extends ApiController implements ControlPanelApiInterface
         $this->onDataValid(function($data) {            
             $model = Model::Ads('ads');
 
-            if ($model->findByColumn($data['title'],'title') !== false) {
+            if (is_object($model->findByColumn($data['title'],'title')) == true) {
                 $this->error('errors.exist');
                 return;
             }
