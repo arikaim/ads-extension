@@ -1,0 +1,11 @@
+{
+    "add": "Ad was created successfully.",
+    "update": "Ad was updated successfully.",
+    "delete": "Ad was deleted successfully.",   
+    "errors": {
+        "exist": "Ad with this title exist.",
+        "add": "Can't create ad.",
+        "update": "Can't save ad.",
+        "delete": "Can't delete ad."        
+    }
+}

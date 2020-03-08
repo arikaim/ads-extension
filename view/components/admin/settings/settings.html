@@ -1,0 +1,18 @@
+{% component 'components:tabs.vertical.content' %}
+{% set library = package('library').getPackageProperties('adsense') %}
+<div class="mt-4">      
+    {% if library['package-type'] is empty %}
+        <div class="ui warning message">{{ messages.library }}</div>
+    {% else %}
+        {% set params = getOption('library.params',null) %}
+        {% set library_params = (params['adsense'] is empty) ? library.params : params['adsense'] %}
+        <h4>{{ labels.adsense }}</h4>
+        {{  component('system:admin.libraries.library.params.form',{ 
+                library: 'adsense',
+                params: library_params,
+                show_value: true 
+            }) 
+        }}
+    {% endif %}         
+</div>
+{% endcomponent %}

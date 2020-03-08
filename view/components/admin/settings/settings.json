@@ -1,0 +1,12 @@
+{
+    "title": {
+        "content": "Settings",
+        "icon": "cogs"
+    },
+    "labels": {
+        "adsense": "AdSense Publisher ID"
+    },
+    "messages": {
+        "library": "AdSense ui library not installed."
+    }
+}

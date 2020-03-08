@@ -1,0 +1,18 @@
+{
+    "title": "Ads Manager",
+    "name": "ads",
+    "package-type": "extension",
+    "type": "user",
+    "description": "Ads Manager.",
+    "short-description": "Ads Manager.",
+    "version": "1.0.0",
+    "position": "4",
+    "repository": "https://github.com/arikaim/ads-extension.git",
+    "admin-menu": {        
+        "title": "Ads",
+        "icon": "ad",
+        "page-title": "Ads",
+        "page-icon": "ad",       
+        "component": "ads::admin"
+    }
+}
