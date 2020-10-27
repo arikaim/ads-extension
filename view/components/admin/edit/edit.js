@@ -1,7 +1,7 @@
 'use strict';
 
 $(document).ready(function() {
-   
+
     $('#ads_dropdown').dropdown({
         onChange: function(value, text, choice) { 
             arikaim.page.loadContent({
@@ -15,6 +15,7 @@ $(document).ready(function() {
     });
     
     function initAdsForm() {
+        arikaim.ui.form.addRules("#ads_form");
         arikaim.ui.form.onSubmit("#ads_form",function() {  
             return adsControlPanel.update('#ads_form');
         },function(result) {          

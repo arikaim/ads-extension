@@ -10,7 +10,7 @@
 namespace Arikaim\Extensions\Ads\Controllers;
 
 use Arikaim\Core\Controllers\ControlPanelApiInterface;
-use Arikaim\Core\Controllers\ApiController;
+use Arikaim\Core\Controllers\ControlPanelApiController;
 use Arikaim\Core\Db\Model;
 
 use Arikaim\Core\Controllers\Traits\Status;
@@ -18,7 +18,7 @@ use Arikaim\Core\Controllers\Traits\Status;
 /**
  * Ads control panel controller
 */
-class AdsControlPanel extends ApiController implements ControlPanelApiInterface
+class AdsControlPanel extends ControlPanelApiController implements ControlPanelApiInterface
 {
     use Status;
 
@@ -35,10 +35,9 @@ class AdsControlPanel extends ApiController implements ControlPanelApiInterface
     /**
      * Constructor
      * 
-     * @param Container $container
-     * @return void
+     * @param Container|null $container
      */
-    public function __construct($container)
+    public function __construct($container = null)
     {
         parent::__construct($container);
         
@@ -56,18 +55,16 @@ class AdsControlPanel extends ApiController implements ControlPanelApiInterface
     */
     public function addController($request, $response, $data) 
     {       
-        $this->requireControlPanelPermission();
-        
         $this->onDataValid(function($data) {            
             $model = Model::Ads('ads');
 
-            if (is_object($model->findByColumn($data['title'],'title')) == true) {
+            if (\is_object($model->findByColumn($data['title'],'title')) == true) {
                 $this->error('errors.exist');
                 return;
             }
             $newModel = $model->createAd($data['title'],$data['code'],$data['description']);
                     
-            $this->setResponse(is_object($newModel),function() use($newModel) {                                
+            $this->setResponse(\is_object($newModel),function() use($newModel) {                                
                 $this
                     ->message('add')
                     ->field('uuid',$newModel->uuid);                         
@@ -88,8 +85,6 @@ class AdsControlPanel extends ApiController implements ControlPanelApiInterface
     */
     public function updateController($request, $response, $data) 
     {       
-        $this->requireControlPanelPermission();
-        
         $this->onDataValid(function($data) {
             $uuid = $data->get('uuid');
             $model = Model::Ads('ads');
@@ -124,8 +119,6 @@ class AdsControlPanel extends ApiController implements ControlPanelApiInterface
     */
     public function deleteController($request, $response, $data)
     { 
-        $this->requireControlPanelPermission();
-
         $this->onDataValid(function($data) {
             $uuid = $data->get('uuid');
             $model = Model::Ads('ads')->findByid($uuid);

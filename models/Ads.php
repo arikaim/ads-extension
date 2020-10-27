@@ -63,10 +63,6 @@ class Ads extends Model
      */
     public function createAd($title, $code, $description = null)
     {      
-        if (empty($title) == true) {
-            return false;
-        }
-
         if ($this->where('title','=',$title)->count() > 0) {
             return false;
         }
@@ -87,13 +83,13 @@ class Ads extends Model
     public function getCode($slug)
     {
         $model = $this->findBySlug($slug);
-        if (is_object($model) == false) {
+        if (\is_object($model) == false) {
             $model = $this->findByColumn($slug,'title');
         }
-        if (is_object($model) == false) {
+        if (\is_object($model) == false) {
             return false;
         }
-        $code = ($model->status != 1) ? null : trim($model->code);
+        $code = ($model->status != 1) ? null : \trim($model->code);
 
         return (empty($code) == true) ? false : $code;
     }
