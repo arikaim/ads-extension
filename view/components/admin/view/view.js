@@ -56,4 +56,5 @@ var adsView = new AdsView();
 
 arikaim.page.onReady(function() {
     adsView.init();   
+    adsView.initRows();
 });

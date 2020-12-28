@@ -4,5 +4,8 @@
             "content": "Delete",          
             "title": "Delete ad"
         }  
-    }    
+    },
+    "labels": {
+        "demo": "demo mode"
+    }   
 }

@@ -4,12 +4,16 @@
     {% for item in items.getItems() %} 
     <tr id="row_{{ item.uuid }}">
         <td>
+            {% if demo_mode == false %}
             <button class="ui icon mini basic button edit-button" {{ buttons.edit.title|attr('title') }} uuid="{{ item.uuid }}">
                 <i class="icon edit"></i>
             </button> 
             <button class="ui icon mini basic button delete-button" {{ buttons.delete.title|attr('title') }} uuid="{{ item.uuid }}" data-title="{{ item.title }}">
                 <i class="icon trash orange"></i>
             </button> 
+            {% else %}
+            <div class="ui basic red label">{{ labels.demo }}</div>
+            {% endif %}
         </td>
         <td>
             {{ component('components:status.dropdown',{ status: item.status, uuid: item.uuid, skip: [2,3,4,5] }) }}         
