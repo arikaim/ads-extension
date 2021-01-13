@@ -7,8 +7,7 @@
 'use strict';
 
 function AdsControlPanel() {
-    var self = this;
-
+  
     this.delete = function(uuid, onSuccess, onError) {
         return arikaim.delete('/api/ads/admin/delete/' + uuid,onSuccess,onError);          
     };

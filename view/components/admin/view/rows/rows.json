@@ -3,7 +3,11 @@
         "delete": {      
             "content": "Delete",          
             "title": "Delete ad"
-        }  
+        },
+        "help": {      
+            "content": "Get ad code",          
+            "title": "Get ad code"
+        }    
     },
     "labels": {
         "demo": "demo mode"

@@ -41,11 +41,22 @@ function AdsView() {
 
         arikaim.ui.button('.edit-button',function(element) {
             var uuid = $(element).attr('uuid');
-            arikaim.ui.setActiveTab('#ads_edit');
+            arikaim.ui.setActiveTab('#ads_edit','.ads-tab-item');
 
             arikaim.page.loadContent({
                 id: 'ads_content',
                 component: 'ads::admin.edit',
+                params: { uuid: uuid }
+            }); 
+        });
+
+        arikaim.ui.button('.details-button',function(element) {
+            var uuid = $(element).attr('uuid');
+            arikaim.ui.setActiveTab('#details_ad','.ads-tab-item');
+
+            arikaim.page.loadContent({
+                id: 'ads_content',
+                component: 'ads::admin.details',
                 params: { uuid: uuid }
             }); 
         });

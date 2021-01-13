@@ -1,0 +1,6 @@
+{% set code = createModel('Ads','ads').getCode(slug) %}
+{% if code is not empty %}
+<div {{ class|attr('class') }} {{ id|attr('id') }}>
+    {{ code }}
+</div>
+{% endif %}
