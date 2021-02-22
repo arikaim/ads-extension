@@ -31,7 +31,7 @@ class Ads extends Model
      *
      * @var string
      */
-    protected $table = "ads";
+    protected $table = 'ads';
 
     /**
      * Fillable attributes
@@ -54,16 +54,44 @@ class Ads extends Model
     public $timestamps = false;
 
     /**
+     * Find ad
+     *
+     * @param string $title
+     * @return Model|null
+     */
+    public function findAd(string $title)
+    {
+        $model = $this->findByColumn($title,'title');
+        if($model === false) {
+            // find by slug
+            $model = $this->findBySlug($title);
+        }
+     
+        return ($model === false) ? null : $model;      
+    }
+
+    /**
+     * Return true if ad exist
+     *
+     * @param string $title
+     * @return boolean
+     */
+    public function hasAd(string $title): bool 
+    {
+        return ($this->findAd($title) == null) ? false : true;
+    }
+
+    /**
      * Create ad
      *
      * @param string $title
      * @param string $code
-     * @param string $description
+     * @param string|null $description
      * @return Model|false
      */
-    public function createAd($title, $code, $description = null)
+    public function createAd(string $title, string $code, ?string $description = null)
     {      
-        if ($this->where('title','=',$title)->count() > 0) {
+        if ($this->hasAd($title) == true) {
             return false;
         }
 
@@ -80,17 +108,18 @@ class Ads extends Model
      * @param string $slug
      * @return string|false
      */
-    public function getCode($slug)
+    public function getCode(string $slug)
     {
-        $model = $this->findBySlug($slug);
-        if (\is_object($model) == false) {
-            $model = $this->findByColumn($slug,'title');
-        }
-        if (\is_object($model) == false) {
+        $model = $this->findAd($slug);
+
+        if ($model === false) {
             return false;
         }
-        $code = ($model->status != 1) ? null : \trim($model->code);
-
-        return (empty($code) == true) ? false : $code;
+        if ($model->status != 1) {
+            // disabled
+            return false;
+        }
+     
+        return \trim($model->code);
     }
 }

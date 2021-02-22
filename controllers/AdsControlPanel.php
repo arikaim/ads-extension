@@ -57,11 +57,12 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
     {       
         $this->onDataValid(function($data) {            
             $model = Model::Ads('ads');
-
-            if (\is_object($model->findByColumn($data['title'],'title')) == true) {
+           
+            if ($model->hasAd($data['title']) == true) {
                 $this->error('errors.exist');
                 return;
             }
+
             $newModel = $model->createAd($data['title'],$data['code'],$data['description']);
                     
             $this->setResponse(\is_object($newModel),function() use($newModel) {                                
@@ -71,7 +72,7 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
             },'errors.add');
         });
         $data           
-            ->addRule('text:min=2','tags')           
+            ->addRule('text:min=2','title')           
             ->validate();       
     }
 

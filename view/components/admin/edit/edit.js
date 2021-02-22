@@ -1,7 +1,6 @@
 'use strict';
 
-$(document).ready(function() {
-
+arikaim.component.onLoaded(function() {
     $('#ads_dropdown').dropdown({
         onChange: function(value, text, choice) { 
             arikaim.page.loadContent({
@@ -9,19 +8,10 @@ $(document).ready(function() {
                 component: 'ads::admin.form',
                 params: { uuid: value }
             },function(result) {
-                initAdsForm();
+                adsControlPanel.initAdsForm();
             });
         }
     });
-    
-    function initAdsForm() {
-        arikaim.ui.form.addRules("#ads_form");
-        arikaim.ui.form.onSubmit("#ads_form",function() {  
-            return adsControlPanel.update('#ads_form');
-        },function(result) {          
-            arikaim.ui.form.showMessage(result.message);        
-        });
-    }
-    
-    initAdsForm();    
+      
+    adsControlPanel.initAdsForm();    
 });

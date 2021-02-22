@@ -1,6 +1,6 @@
 'use strict';
 
-$(document).ready(function() {
+arikaim.component.onLoaded(function() {
     arikaim.ui.form.addRules("#ads_form");
     arikaim.ui.form.onSubmit("#ads_form",function() {  
         return adsControlPanel.add('#ads_form');

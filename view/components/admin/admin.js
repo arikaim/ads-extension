@@ -29,6 +29,15 @@ function AdsControlPanel() {
         return arikaim.put('/api/ads/admin/status',data,onSuccess,onError);           
     };
 
+    this.initAdsForm = function() {
+        arikaim.ui.form.addRules("#ads_form");
+        arikaim.ui.form.onSubmit("#ads_form",function() {  
+            return adsControlPanel.update('#ads_form');
+        },function(result) {          
+            arikaim.ui.form.showMessage(result.message);        
+        });
+    }
+
     this.init = function() {    
         arikaim.ui.tab();
     };
@@ -36,6 +45,6 @@ function AdsControlPanel() {
 
 var adsControlPanel = new AdsControlPanel();
 
-arikaim.page.onReady(function() {
+arikaim.component.onLoaded(function() {
     adsControlPanel.init();
 });

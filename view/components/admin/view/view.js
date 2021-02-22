@@ -6,17 +6,21 @@
 */
 'use strict';
 
-function AdsView() {
+/**
+ * 
+ * @class AdsView
+ * @inherit ControlPanelView
+ */
+function AdsView() {   
     var self = this;
 
     this.init = function() {
+        this.loadMessages('ads::admin');
         paginator.init('ads_rows');    
     };
 
     this.initRows = function() {    
-        var component = arikaim.component.get('ads::admin');
-        var removeMessage = component.getProperty('messages.remove.content');
-
+      
         $('.status-dropdown').dropdown({
             onChange: function(value) {
                 var uuid = $(this).attr('uuid');
@@ -27,10 +31,10 @@ function AdsView() {
         arikaim.ui.button('.delete-button',function(element) {
             var uuid = $(element).attr('uuid');
             var title = $(element).attr('data-title');
+            var message = arikaim.ui.template.render(self.getMessage('remove.content'),{ title: title });
 
-            var message = arikaim.ui.template.render(removeMessage,{ title: title });
             modal.confirmDelete({ 
-                title: component.getProperty('messages.remove.title'),
+                title: self.getMessage('remove.title'),
                 description: message
             },function() {
                 adsControlPanel.delete(uuid,function(result) {
@@ -63,9 +67,9 @@ function AdsView() {
     }
 }
 
-var adsView = new AdsView();
+var adsView = new createObject(AdsView,ControlPanelView);
 
-arikaim.page.onReady(function() {
+arikaim.component.onLoaded(function() {
     adsView.init();   
     adsView.initRows();
 });

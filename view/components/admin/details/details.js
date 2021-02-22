@@ -1,7 +1,6 @@
 'use strict';
 
-$(document).ready(function() {
-
+arikaim.component.onLoaded(function() {
     $('#ads_dropdown').dropdown({
         onChange: function(value, text, choice) { 
             arikaim.page.loadContent({
