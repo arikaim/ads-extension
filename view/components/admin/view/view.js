@@ -45,7 +45,7 @@ function AdsView() {
 
         arikaim.ui.button('.edit-button',function(element) {
             var uuid = $(element).attr('uuid');
-            arikaim.ui.setActiveTab('#ads_edit','.ads-tab-item');
+            arikaim.ui.setActiveTab('#edit_ad','.ads-tab-item');
 
             arikaim.page.loadContent({
                 id: 'ads_content',
@@ -67,7 +67,7 @@ function AdsView() {
     }
 }
 
-var adsView = new createObject(AdsView,ControlPanelView);
+var adsView = createObject(AdsView,ControlPanelView);
 
 arikaim.component.onLoaded(function() {
     adsView.init();   

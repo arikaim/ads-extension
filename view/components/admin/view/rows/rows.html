@@ -1,33 +1,31 @@
-{% component 'components:view.rows' %}
-    {% set ads = createModel('Ads','ads').where('id','>',0) %}
-    {% set items = paginate(ads,'share') %}  
-    {% for item in items.getItems() %} 
-    <tr id="row_{{ item.uuid }}">
-        <td>
-            <button class="ui icon mini basic button details-button" {{ buttons.help.title|attr('title') }} uuid="{{ item.uuid }}">
-                <i class="icon code blue"></i>
-            </button> 
-            {% if demo_mode == false %}
-            <button class="ui icon mini basic button edit-button" {{ buttons.edit.title|attr('title') }} uuid="{{ item.uuid }}">
-                <i class="icon edit"></i>
-            </button> 
-            <button class="ui icon mini basic button delete-button" {{ buttons.delete.title|attr('title') }} uuid="{{ item.uuid }}" data-title="{{ item.title }}">
-                <i class="icon trash orange"></i>
-            </button> 
-            {% else %}
-            <div class="ui basic red label">{{ labels.demo }}</div>
-            {% endif %}
-        </td>
-        <td>
-            {{ component('components:status.dropdown',{ status: item.status, uuid: item.uuid, skip: [2,3,4,5] }) }}         
-        </td>       
-        <td>
-            <div class="ui basic label">
-                {{ item.slug }}
-            </div>
-        </td>
-        <td>{{ item.title }}</td>
-        <td>{{ item.description }}</td>
-    </tr>
-    {% endfor %}
-{% endcomponent %}
+{% set ads = createModel('Ads','ads').where('id','>',0) %}
+{% set items = paginate(ads,'ads') %}  
+{% for item in items.getItems() %} 
+<tr id="row_{{ item.uuid }}">
+    <td>
+        <button class="ui icon mini basic button details-button" {{ buttons.help.title|attr('title') }} uuid="{{ item.uuid }}">
+            <i class="icon code blue"></i>
+        </button> 
+        {% if demo_mode == false %}
+        <button class="ui icon mini basic button edit-button" {{ buttons.edit.title|attr('title') }} uuid="{{ item.uuid }}">
+            <i class="icon edit"></i>
+        </button> 
+        <button class="ui icon mini basic button delete-button" {{ buttons.delete.title|attr('title') }} uuid="{{ item.uuid }}" data-title="{{ item.title }}">
+            <i class="icon trash orange"></i>
+        </button> 
+        {% else %}
+        <div class="ui basic red label">{{ labels.demo }}</div>
+        {% endif %}
+    </td>
+    <td>
+        {{ component('components:status.dropdown',{ status: item.status, uuid: item.uuid, skip: [2,3,4,5] }) }}         
+    </td>       
+    <td>
+        <div class="ui basic label">
+            {{ item.slug }}
+        </div>
+    </td>
+    <td>{{ item.title }}</td>
+    <td>{{ item.description }}</td>
+</tr>
+{% endfor %}
