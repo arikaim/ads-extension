@@ -8,9 +8,9 @@
         <label>{{ fields.title.label }}</label>
         <input rule="minLength[2]" type="text" name="title" id="title" {{ fields.title.placeholder|attr('placeholder') }} value="{{ ads.title }}">  
     </div> 
-    <div class="field required">
+    <div class="field">
         <label>{{ fields.code.label }}</label>
-        <textarea rule="minLength[2]" name="code" id="code" rows="10" cols="10" {{ fields.code.placeholder|attr('placeholder') }}>{{ ads.code }}</textarea>        
+        <textarea name="code" id="code" rows="10" cols="10" {{ fields.code.placeholder|attr('placeholder') }}>{{ ads.code }}</textarea>        
     </div>  
     <div class="field">
         <label>{{ fields.description.label }}</label>

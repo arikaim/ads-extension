@@ -1,6 +1,8 @@
 {% set code = createModel('Ads','ads').getCode(slug) %}
 {% if code is not empty %}
-<div {{ class|attr('class') }} {{ id|attr('id') }}>
-    {{ code }}
-</div>
+    <div {{ class|attr('class') }} {{ id|attr('id') }}>
+        {{ code }}
+    </div>
+{% elseif placeholder is not empty %}
+    <img src="{{ template_url }}images/{{ placeholder }}">
 {% endif %}

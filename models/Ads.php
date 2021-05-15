@@ -56,15 +56,15 @@ class Ads extends Model
     /**
      * Find ad
      *
-     * @param string $title
+     * @param string $slug
      * @return Model|null
      */
-    public function findAd(string $title)
+    public function findAd(string $slug)
     {
-        $model = $this->findByColumn($title,'title');
-        if($model === false) {
-            // find by slug
-            $model = $this->findBySlug($title);
+        $model = $this->findBySlug($slug);
+        if (\is_object($model) == false) {
+            // find by id or uuid
+            $model = $this->findById($slug);
         }
      
         return ($model === false) ? null : $model;      
@@ -111,8 +111,7 @@ class Ads extends Model
     public function getCode(string $slug)
     {
         $model = $this->findAd($slug);
-
-        if ($model === false) {
+        if (\is_object($model) == false) {
             return false;
         }
         if ($model->status != 1) {
