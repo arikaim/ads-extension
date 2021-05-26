@@ -9,7 +9,7 @@
         {% if demo_mode != true %}                 
             {{ component('components:form.footer') }}
         {% else %}
-            {{ component('semantic~message.warning',{ message: 'Disabled in demo mode '}) }}
+            <p class="p-4 bg-gray-200 text-red-800 rounded">Disabled in demo mode.</p>   
         {% endif %}   
     </form>
 </div>
