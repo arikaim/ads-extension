@@ -37,7 +37,9 @@ class AdsSchema extends Schema
         $table->status();         
         $table->userId();
         $table->slug();
+        $table->string('type')->nullable(true); 
         $table->string('title')->nullable(true); 
+        $table->string('link_url')->nullable(true); 
         $table->text('description')->nullable(true);      
         $table->text('code')->nullable(true); 
         $table->integer('views')->nullable(false)->default(0);  
@@ -53,6 +55,12 @@ class AdsSchema extends Schema
      */
     public function update($table) 
     {              
+        if ($this->hasColumn('type') == false) {
+            $table->string('type')->nullable(true);
+        }
+        if ($this->hasColumn('link_url') == false) {
+            $table->string('link_url')->nullable(true);
+        }
     }
 
     /**

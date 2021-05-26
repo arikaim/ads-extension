@@ -1,0 +1,21 @@
+{% set ads = createModel('Ads','ads').findById(uuid) %} 
+<div class="ui stackable tabular menu ads-edit-tabs">      
+    <div class="item link active edit-ads-tab-item" component="ads::admin.edit.details" uuid="{{ uuid }}">
+        <i class="icon stream blue"></i>
+        {{ labels.details }}     
+    </div>  
+    {% if ads.type == 'banner' %}
+    <div class="item link edit-ads-tab-item" component="ads::admin.edit.image" uuid="{{ uuid }}">
+        <i class="images outline icon blue"></i>
+        {{ labels.banner }}     
+    </div>  
+    {% else %}
+    <div class="item link edit-ads-tab-item" component="ads::admin.edit.code" uuid="{{ uuid }}">
+        <i class="align left icon blue"></i>
+        {{ labels.code }}     
+    </div>  
+    {% endif %}     
+</div>
+<div class="ui active tab basic segment" id="ads_edit_content" uuid="{{ uuid }}">          
+    {{ component('ads::admin.edit.details',{ uuid: uuid }) }}       
+</div>     

@@ -4,13 +4,13 @@
             "label": "Title",
             "placeholder": "Enter title"      
         },
-        "code": {
-            "label": "Code",
-            "placeholder": "Place code here"      
+        "type": {
+            "label": "Type",
+            "placeholder": ""      
         },
         "description": {
             "label": "Description",
             "placeholder": "Enter description"      
-        }        
+        }  
     }    
 }

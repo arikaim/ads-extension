@@ -1,0 +1,16 @@
+{% set selected = selected|default('js') %}
+{% set item_selected = items[selected] %}
+<div class="ui dropdown ads-type-dropdown {{ class|default('basic button') }}" {{ title|attr('title') }} {{ id|attr('id') }}>
+    <input type="hidden" name="{{ name|default('type') }}" value="{{ selected }}">       
+    <div class="text">
+        {{ item_selected }}
+    </div>  
+    <i class="icon dropdown"></i> 
+    <div class="menu">        
+        {% for key, item in items %}
+        <div class="item" data-value="{{ key }}">          
+            {{ item }}
+        </div>   
+        {% endfor %}          
+    </div>
+</div>

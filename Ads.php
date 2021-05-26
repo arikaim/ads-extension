@@ -24,13 +24,20 @@ class Ads extends Extension
     public function install()
     {
         // Control Panel
-        $this->addApiRoute('POST','/api/ads/admin/add','AdsControlPanel','add','session');   
-        $this->addApiRoute('PUT','/api/ads/admin/update','AdsControlPanel','update','session');   
-        $this->addApiRoute('DELETE','/api/ads/admin/delete/{uuid}','AdsControlPanel','delete','session');      
-        $this->addApiRoute('PUT','/api/ads/admin/status','AdsControlPanel','setStatus','session');    
-                         
+        $this->addApiRoute('POST','/api/admin/ads/add','AdsControlPanel','add','session');   
+        $this->addApiRoute('PUT','/api/admin/ads/update','AdsControlPanel','update','session');   
+        $this->addApiRoute('PUT','/api/admin/ads/update/code','AdsControlPanel','updateCode','session');   
+        $this->addApiRoute('PUT','/api/admin/ads/update/banner','AdsControlPanel','updateBanner','session');   
+        $this->addApiRoute('DELETE','/api/admin/ads/delete/{uuid}','AdsControlPanel','delete','session');      
+        $this->addApiRoute('PUT','/api/admin/ads/status','AdsControlPanel','setStatus','session');      
+        // Api
+        $this->addApiRoute('GET','/api/ads/link/{code}','AdsApi','openLink',null);   
         // Db tables
         $this->createDbTable('AdsSchema');  
+        // Storage folder
+        $this->createStorageFolder('images/ads',true);
+        // Relation map 
+        $this->addRelationMap('ads','Ads');
     }
     
     /**

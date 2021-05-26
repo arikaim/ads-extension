@@ -99,10 +99,10 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
             $ad = $model->findById($uuid);
             $result = $ad->update($data->toArray());
                
-            $this->setResponse($result,function() use($model) {                                
+            $this->setResponse($result,function() use($uuid) {                                
                 $this
                     ->message('update')
-                    ->field('uuid',$model->uuid);                         
+                    ->field('uuid',$uuid);                         
             },'errors.update');
         });
         $data           
@@ -134,4 +134,67 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
         $data->validate();
     }
 
+    /**
+     * Update code
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $request
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param Validator $data
+     * @return Psr\Http\Message\ResponseInterface
+    */
+    public function updateCodeController($request, $response, $data) 
+    {       
+        $this->onDataValid(function($data) {
+            $uuid = $data->get('uuid');
+            $code = $data->get('code',null);
+            $model = Model::Ads('ads')->findById($uuid);
+            if (\is_object($model) == false) {
+                $this->error('errors.id');
+                return;
+            }
+ 
+            $result = $model->update(['code' => $code]);
+               
+            $this->setResponse($result,function() use($model) {                                
+                $this
+                    ->message('update')
+                    ->field('uuid',$model->uuid);                         
+            },'errors.update');
+        });
+        $data           
+            ->addRule('text:min=2','uuid')                        
+            ->validate();       
+    }
+
+    /**
+     * Update banner
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $request
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param Validator $data
+     * @return Psr\Http\Message\ResponseInterface
+    */
+    public function updateBannerController($request, $response, $data) 
+    {       
+        $this->onDataValid(function($data) {
+            $uuid = $data->get('uuid');
+            $linkUrl = $data->get('link_url',null);
+            $model = Model::Ads('ads')->findById($uuid);
+            if (\is_object($model) == false) {
+                $this->error('errors.id');
+                return;
+            }
+ 
+            $result = $model->update(['link_url' => $linkUrl]);
+               
+            $this->setResponse($result,function() use($model) {                                
+                $this
+                    ->message('update')
+                    ->field('uuid',$model->uuid);                         
+            },'errors.update');
+        });
+        $data           
+            ->addRule('text:min=2','uuid')                        
+            ->validate();       
+    }
 }

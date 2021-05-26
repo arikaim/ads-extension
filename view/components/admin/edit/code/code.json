@@ -1,0 +1,8 @@
+{
+    "fields": {
+        "code": {
+            "label": "Code",
+            "placeholder": "Place code here"      
+        }
+    }    
+}

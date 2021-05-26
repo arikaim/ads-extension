@@ -3,9 +3,9 @@
         <h4>{{ labels.ad }}</h4>
         {{ component('ads::admin.dropdown',{ selected: uuid, class: 'fluid' }) }}
     </div>    
-    <div class="mt-4" id="ad_form_content">   
+    <div class="mt-4" id="ads_tab_content">   
         {% if uuid is not empty %}
-            {{ component('ads::admin.form',{ uuid: uuid }) }}
+            {{ component('ads::admin.edit.tabs',{ uuid: uuid }) }}
         {% endif %}
     </div>
 {% endcomponent %}

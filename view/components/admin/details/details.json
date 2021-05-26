@@ -3,7 +3,14 @@
         "content": "Details",
         "icon": "info"
     },
-    "labels": {
-        "ad": "Select Ad"
+    "labels": {      
+        "title": "Title",
+        "status": "Status",
+        "slug": "Slug",
+        "type": "Type",
+        "image": "Image",
+        "clicks": "Clicks",
+        "url": "Link Url",
+        "code": "Code"
     }
 }

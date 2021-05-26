@@ -1,11 +1,73 @@
-{% component 'components:tabs.vertical.content' %}
-    <div class="ui segment mt-4">
-        <h4>{{ labels.ad }}</h4>
-        {{ component('ads::admin.dropdown',{ selected: uuid, class: 'fluid' }) }}
-    </div>    
-    <div class="mt-4" id="details_content">   
-        {% if uuid is not empty %}
-            {{ component('ads::admin.details.content',{ uuid: uuid }) }}
-        {% endif %}
-    </div>
-{% endcomponent %}
+{% set ads = createModel('Ads','ads').findById(uuid) %} 
+{{ component('components:segment-title',{ title: title.content, icon: 'code' }) }}
+<div class="mt-4">
+    <table class="ui very basic definition table">
+        <thead>
+            <tr>
+                <th class="two wide right aligned"></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="right aligned">{{ labels.title }}</td>
+                <td>{{ ads.title }}</td>
+            </tr>
+            <tr>
+                <td class="right aligned">{{ labels.slug }}</td>
+                <td>
+                    <div class="ui basic label">{{ ads.slug }}</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="right aligned">{{ labels.status }}</td>
+                <td>
+                    {{ component('semantic~status.label',{ status: ads.status }) }}    
+                </td>
+            </tr>
+            <tr>
+                <td class="right aligned">{{ labels.type }}</td>
+                <td>
+                    {{ ads.type|default('js') }}
+                </td>
+            </tr>
+            {% if ads.type == 'js' or ads.type is empty %}
+                <tr>
+                    <td class="right aligned">{{ labels.code }}</td>
+                    <td>
+                        {{  component('semantic~code',{ 
+                                language: 'javascript', 
+                                content: ads.code,
+                                hide_copy: true 
+                            }) 
+                        }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td class="right aligned">{{ labels.image }}</td>
+                    <td>
+                        {% set image = service('image.library').getRelatedImage(ads.id,'ads') %} 
+                        {% if image is not empty %}
+                            <img src="{{ url(image.src) }}" class="ui image medium">
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}    
+            {% if ads.link_url is not empty %}      
+                <tr>
+                    <td class="right aligned">{{ labels.url }}</td>
+                    <td>
+                        {{ ads.link_url }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right aligned">{{ labels.clicks }}</td>
+                    <td>
+                        {{ ads.views }}
+                    </td>
+                </tr>
+            {% endif %}     
+        </tbody>
+    </table>   
+</div>

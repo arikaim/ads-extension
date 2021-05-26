@@ -26,6 +26,10 @@
         </div>
     </td>
     <td>{{ item.title }}</td>
-    <td>{{ item.description }}</td>
+    <td>
+        <div class="ui blue basic label">
+            {{ item.type|default('js') }}
+        </div>
+    </td>
 </tr>
 {% endfor %}

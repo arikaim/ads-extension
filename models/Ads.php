@@ -11,6 +11,7 @@ namespace Arikaim\Extensions\Ads\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Arikaim\Core\Http\Url;
 use Arikaim\Core\Db\Traits\Uuid;
 use Arikaim\Core\Db\Traits\Find;
 use Arikaim\Core\Db\Traits\Status;
@@ -21,6 +22,9 @@ use Arikaim\Core\Db\Traits\Slug;
  */
 class Ads extends Model  
 {
+    const JS_TYPE      = 'js';
+    const BANNER_TYPE  = 'banner';
+
     use Uuid,    
         Status,   
         Slug,
@@ -42,6 +46,8 @@ class Ads extends Model
         'code',
         'slug',
         'title',
+        'type',
+        'link_url',
         'description',
         'status'      
     ];
@@ -54,13 +60,37 @@ class Ads extends Model
     public $timestamps = false;
 
     /**
+     * Get banner link url
+     *
+     * @return string
+     */
+    public function getLinkUrl(): string
+    {
+        return Url::getUrl('/api/ads/link/' . $this->uuid,true);
+    }
+
+    /**
+     * Return true if ads is banner
+     *
+     * @return boolean
+     */
+    public function isBanner(): bool
+    {
+        return ($this->type == Self::BANNER_TYPE);
+    }
+
+    /**
      * Find ad
      *
      * @param string $slug
      * @return Model|null
      */
-    public function findAd(string $slug)
+    public function findAd(?string $slug)
     {
+        if (empty($slug) == true) {
+            return null;
+        }
+
         $model = $this->findBySlug($slug);
         if (\is_object($model) == false) {
             // find by id or uuid
@@ -105,18 +135,18 @@ class Ads extends Model
     /**
      * Get ad code
      *
-     * @param string $slug
-     * @return string|false
+     * @param string|null $slug
+     * @return string|null
      */
-    public function getCode(string $slug)
+    public function getCode(?string $slug = null): ?string
     {
-        $model = $this->findAd($slug);
+        $model = (empty($slug) == false) ? $this->findAd($slug) : $this;
         if (\is_object($model) == false) {
-            return false;
+            return null;
         }
         if ($model->status != 1) {
             // disabled
-            return false;
+            return null;
         }
      
         return \trim($model->code);

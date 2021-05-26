@@ -1,8 +1,12 @@
-{% set code = createModel('Ads','ads').getCode(slug) %}
-{% if code is not empty %}
-    <div {{ class|attr('class') }} {{ id|attr('id') }}>
-        {{ code }}
-    </div>
-{% elseif placeholder is not empty %}
-    <img src="{{ template_url }}images/{{ placeholder }}">
+{% set ads = createModel('Ads','ads').findAd(slug) %}
+{% if ads.isBanner() == true %}
+    {% set image = service('image.library').getRelatedImage(ads.id,'ads') %} 
+    <a class="{{ image_link_class }}" href="{{ ads.getLinkUrl() }}">
+        <img src="{{ url(image.src) }}" class="{{ image_class }}">
+    </a>
+{% else %}
+    {{ ads.getCode() }}   
+    {% if placeholder is not empty %}
+        <img src="{{ template_url }}images/{{ placeholder }}">
+    {% endif %}
 {% endif %}

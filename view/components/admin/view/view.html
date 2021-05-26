@@ -7,20 +7,27 @@
         </div>
     </div>
 </div>
-<table class="ui compact stackable selectable borderless basic table">
-    <thead class="table-head">
-        <tr>              
-            <th class="one wide collapsing left aligned">{{ columns.action }}</th>
-            <th class="one wide">{{ columns.status }}</th>                      
-            <th class="two wide">{{ columns.slug }}</th>   
-            <th class="two wide">{{ columns.title }}</th>         
-            <th class="two wide">{{ columns.description }}</th>                                                            
-        </tr>
-    </thead>
-    <tbody id="ads_rows" component="ads::admin.view.rows" namespace="ads">
-        {{ component('ads::admin.view.rows') }}   
-    </tbody>
-</table>
-<div class="mt-2">
-    {{ component('components:paginator',{ namespace: 'ads' }) }}
+<div class="ui divided two column grid">
+    <div class="column">
+        <table class="ui compact stackable selectable borderless basic table">
+            <thead class="">
+                <tr>              
+                    <th class="one wide collapsing left aligned">{{ columns.action }}</th>
+                    <th class="one wide">{{ columns.status }}</th>                      
+                    <th class="two wide">{{ columns.slug }}</th>   
+                    <th class="two wide">{{ columns.title }}</th>         
+                    <th class="two wide">{{ columns.type }}</th>                                                            
+                </tr>
+            </thead>
+            <tbody id="ads_rows" component="ads::admin.view.rows" namespace="ads">
+                {{ component('ads::admin.view.rows') }}   
+            </tbody>
+        </table>
+        <div class="mt-2">
+            {{ component('components:paginator',{ namespace: 'ads' }) }}
+        </div>        
+    </div>
+    <div class="column" id="ads_details">
+
+    </div>
 </div>

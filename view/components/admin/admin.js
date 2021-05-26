@@ -9,15 +9,23 @@
 function AdsControlPanel() {
   
     this.delete = function(uuid, onSuccess, onError) {
-        return arikaim.delete('/api/ads/admin/delete/' + uuid,onSuccess,onError);          
+        return arikaim.delete('/api/admin/ads/delete/' + uuid,onSuccess,onError);          
     };
 
     this.add = function(formId, onSuccess, onError) {
-        return arikaim.post('/api/ads/admin/add',formId,onSuccess,onError);          
+        return arikaim.post('/api/admin/ads/add',formId,onSuccess,onError);          
     };
 
     this.update = function(formId, onSuccess, onError) {
-        return arikaim.put('/api/ads/admin/update',formId,onSuccess,onError);          
+        return arikaim.put('/api/admin/ads/update',formId,onSuccess,onError);          
+    };
+
+    this.updateCode = function(formId, onSuccess, onError) {
+        return arikaim.put('/api/admin/ads/update/code',formId,onSuccess,onError);          
+    };
+
+    this.updateBanner = function(formId, onSuccess, onError) {
+        return arikaim.put('/api/admin/ads/update/banner',formId,onSuccess,onError);          
     };
 
     this.setStatus = function(uuid, status, onSuccess, onError) { 
@@ -26,25 +34,12 @@ function AdsControlPanel() {
             uuid: uuid 
         };
         
-        return arikaim.put('/api/ads/admin/status',data,onSuccess,onError);           
-    };
-
-    this.initAdsForm = function() {
-        arikaim.ui.form.addRules("#ads_form");
-        arikaim.ui.form.onSubmit("#ads_form",function() {  
-            return adsControlPanel.update('#ads_form');
-        },function(result) {          
-            arikaim.ui.form.showMessage(result.message);        
-        });
-    }
-
-    this.init = function() {    
-        arikaim.ui.tab();
-    };
+        return arikaim.put('/api/admin/ads/status',data,onSuccess,onError);           
+    };  
 }
 
 var adsControlPanel = new AdsControlPanel();
 
 arikaim.component.onLoaded(function() {
-    adsControlPanel.init();
+    arikaim.ui.tab();
 });

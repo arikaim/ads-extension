@@ -1,0 +1,9 @@
+{
+    "title": "Image",
+    "fields": {
+        "url": {
+            "label": "Link Url",
+            "placeholder": "Enter link url"      
+        }
+    }    
+}

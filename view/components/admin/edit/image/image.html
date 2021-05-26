@@ -1,0 +1,44 @@
+{% set ads = createModel('Ads','ads').findById(uuid) %} 
+<div class="mt-2 w-full">
+    <h4>{{ title }}</h4>  
+    <div class="flex flex-row items-center w-full">     
+        {% set image = service('image.library').getRelatedImage(ads.id,'ads') %}  
+        {% set target_path = service('image.library').getDefaultImagesPath(false,'ads') %}
+        {% if image is not empty %}         
+            {{  component('image::admin.images.details.panel',{ 
+                    image: image, 
+                    class: 'w-full',
+                    image_class: 'medium', 
+                    delete_button: true 
+                }) 
+            }}          
+        {% else %}
+            <div class="ml-2 pl-4">
+                {{  component('image::admin.images.upload.form',{                       
+                        class: 'right floated',                     
+                        target_path: target_path,
+                        relation_id: ads.id,
+                        relation_type: 'ads',
+                        hide_preview: true 
+                    }) 
+                }}   
+            </div>
+        {% endif %}
+    </div>
+    {% if image is not empty %}   
+    <div class="mt-4">   
+        <form class="ui form" id="link_form">
+            <input type="hidden" value="{{ uuid }}" name="uuid" id="uuid">
+            <div class="field">
+                <label>{{ fields.url.label }}</label>
+                <input rule="url" name="link_url" id="link_url" value="{{ ads.link_url }}" placeholder="{{ fields.url.placeholder }}">
+            </div>
+            {% if demo_mode != true %}                 
+                {{ component('components:form.footer') }}
+            {% else %}
+                {{ component('semantic~message.warning',{ message: 'Disabled in demo mode '}) }}
+            {% endif %}  
+        </form>
+    </div>     
+    {% endif %}
+</div>
