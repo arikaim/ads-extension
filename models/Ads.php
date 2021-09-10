@@ -115,11 +115,11 @@ class Ads extends Model
      * Create ad
      *
      * @param string $title
-     * @param string $code
+     * @param string|null $code
      * @param string|null $description
      * @return Model|false
      */
-    public function createAd(string $title, string $code, ?string $description = null)
+    public function createAd(string $title, ?string $code = null, ?string $description = null)
     {      
         if ($this->hasAd($title) == true) {
             return false;

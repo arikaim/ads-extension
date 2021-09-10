@@ -50,9 +50,15 @@
                         {% set image = service('image.library').getRelatedImage(ads.id,'ads') %} 
                         {% if image is not empty %}
                             <img src="{{ url(image.src) }}" class="ui image medium">
+                            <div class="py-1 font-bold">
+                                {{ labels.src }}
+                            </div>
+                            <div>
+                                {{ image.src }}
+                            </div>
                         {% endif %}
                     </td>
-                </tr>
+                </tr>               
             {% endif %}    
             {% if ads.link_url is not empty %}      
                 <tr>

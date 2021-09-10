@@ -38,6 +38,8 @@ class Ads extends Extension
         $this->createStorageFolder('images/ads',true);
         // Relation map 
         $this->addRelationMap('ads','Ads');
+        // Services
+        $this->registerService('Ads');
     }
     
     /**

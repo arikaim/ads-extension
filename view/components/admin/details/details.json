@@ -5,6 +5,7 @@
     },
     "labels": {      
         "title": "Title",
+        "src": "Image Src",
         "status": "Status",
         "slug": "Slug",
         "type": "Type",
