@@ -7,7 +7,7 @@
             <textarea name="code" id="code" rows="10" cols="10" {{ fields.code.placeholder|attr('placeholder') }}>{{ ads.code }}</textarea>        
         </div>
         {% if demo_mode != true %}                 
-            {{ component('components:form.footer') }}
+            {{ component('semantic~form.footer') }}
         {% else %}
             <p class="p-4 bg-gray-200 text-red-800 rounded">Disabled in demo mode.</p>   
         {% endif %}   

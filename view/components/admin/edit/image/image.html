@@ -34,7 +34,7 @@
                 <input rule="url" name="link_url" id="link_url" value="{{ ads.link_url }}" placeholder="{{ fields.url.placeholder }}">
             </div>
             {% if demo_mode != true %}                 
-                {{ component('components:form.footer') }}
+                {{ component('semantic~form.footer') }}
             {% else %}
                 <p class="p-4 bg-gray-200 text-red-800 rounded">Disabled in demo mode.</p>   
             {% endif %}  
