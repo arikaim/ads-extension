@@ -51,6 +51,8 @@ class AdsApi extends ApiController
 
         $model->increment('views');
 
-        return $this->withRedirect($response,$model->link_url);
+        return $response
+                    ->withHeader('Location',$model->link_url)
+                    ->withStatus(307);
     }
 }
