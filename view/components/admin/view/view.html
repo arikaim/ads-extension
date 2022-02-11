@@ -1,33 +1,34 @@
 <div class="ui segment">
     <div class="ui stackable grid">
-        <div class="fifteen wide column">
+        <div class="ten wide column">
         </div>
-        <div class="one wide column right floated">       
-            {{ component('semantic~paginator.dropdown',{ namespace: 'ads' }) }}
+        <div class="six wide column right aligned">       
+            {{ component('semantic~paginator.dropdown',{ class: 'mini', namespace: 'ads' }) }}
         </div>
     </div>
 </div>
 <div class="ui divided two column grid">
     <div class="column">
-        <table class="ui compact stackable selectable borderless basic table">
-            <thead class="">
-                <tr>              
-                    <th class="three wide">{{ columns.action }}</th>
-                    <th class="two wide">{{ columns.status }}</th>                      
-                    <th class="four wide">{{ columns.slug }}</th>   
-                    <th class="">{{ columns.title }}</th>         
-                    <th class="one wide">{{ columns.type }}</th>                                                            
-                </tr>
-            </thead>
-            <tbody id="ads_rows" component="ads::admin.view.rows" namespace="ads">
-                {{ component('ads::admin.view.rows') }}   
-            </tbody>
-        </table>
-        <div class="mt-2">
-            {{ component('semantic~paginator',{ namespace: 'ads' }) }}
-        </div>        
+        <div class="ui segment">
+            <table class="ui compact stackable selectable borderless basic table">
+                <thead>
+                    <tr>              
+                        <th class="three wide">{{ columns.action }}</th>
+                        <th class="three wide">{{ columns.status }}</th>                      
+                        <th class="four wide">{{ columns.slug }}</th>   
+                        <th>{{ columns.title }}</th>         
+                        <th class="one wide">{{ columns.type }}</th>                                                            
+                    </tr>
+                </thead>
+                <tbody id="ads_rows" component="ads::admin.view.rows" namespace="ads">
+                    {{ component('ads::admin.view.rows') }}   
+                </tbody>
+            </table>
+            <div class="mt-2">
+                {{ component('semantic~paginator',{ namespace: 'ads' }) }}
+            </div>   
+        </div>
     </div>
     <div class="column" id="ads_details">
-
     </div>
 </div>
