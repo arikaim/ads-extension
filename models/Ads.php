@@ -92,12 +92,7 @@ class Ads extends Model
         }
 
         $model = $this->findBySlug($slug);
-        if (\is_object($model) == false) {
-            // find by id or uuid
-            $model = $this->findById($slug);
-        }
-     
-        return ($model === false) ? null : $model;      
+        return ($model == null) ? $this->findById($slug) : $model;     
     }
 
     /**
@@ -108,7 +103,7 @@ class Ads extends Model
      */
     public function hasAd(string $title): bool 
     {
-        return ($this->findAd($title) == null) ? false : true;
+        return ($this->findAd($title) != null);
     }
 
     /**
@@ -141,7 +136,7 @@ class Ads extends Model
     public function getCode(?string $slug = null): ?string
     {
         $model = (empty($slug) == false) ? $this->findAd($slug) : $this;
-        if (\is_object($model) == false) {
+        if ($model == null) {
             return null;
         }
         if ($model->status != 1) {

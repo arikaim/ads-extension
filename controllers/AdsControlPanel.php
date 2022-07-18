@@ -30,17 +30,6 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
     public function init()
     {
         $this->loadMessages('ads::admin.messages');
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param Container|null $container
-     */
-    public function __construct($container = null)
-    {
-        parent::__construct($container);
-        
         $this->setExtensionName('ads');
         $this->setModelClass('Ads');
     }
@@ -55,25 +44,24 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
     */
     public function addController($request, $response, $data) 
     {       
-        $this->onDataValid(function($data) {            
-            $model = Model::Ads('ads');
-           
-            if ($model->hasAd($data['title']) == true) {
-                $this->error('errors.exist');
-                return;
-            }
-
-            $newModel = $model->createAd($data['title'],$data['code'],$data['description']);
-                    
-            $this->setResponse(\is_object($newModel),function() use($newModel) {                                
-                $this
-                    ->message('add')
-                    ->field('uuid',$newModel->uuid);                         
-            },'errors.add');
-        });
         $data           
-            ->addRule('text:min=2','title')           
-            ->validate();       
+            ->addRule('text:min=2|required','title')           
+            ->validate(true);  
+    
+        $model = Model::Ads('ads');
+        
+        if ($model->hasAd($data['title']) == true) {
+            $this->error('errors.exist');
+            return;
+        }
+
+        $newModel = $model->createAd($data['title'],$data['code'],$data['description']);
+                
+        $this->setResponse(\is_object($newModel),function() use($newModel) {                                
+            $this
+                ->message('add')
+                ->field('uuid',$newModel->uuid);                         
+        },'errors.add');
     }
 
     /**
@@ -85,29 +73,28 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
      * @return Psr\Http\Message\ResponseInterface
     */
     public function updateController($request, $response, $data) 
-    {       
-        $this->onDataValid(function($data) {
-            $uuid = $data->get('uuid');
-            $model = Model::Ads('ads');
-
-            $exists = $model->where('title','=',$data['title'])->where('uuid','<>',$uuid)->exists();
-            if ($exists == true) {
-                $this->error('errors.exist');
-                return;
-            }
-
-            $ad = $model->findById($uuid);
-            $result = $ad->update($data->toArray());
-               
-            $this->setResponse($result,function() use($uuid) {                                
-                $this
-                    ->message('update')
-                    ->field('uuid',$uuid);                         
-            },'errors.update');
-        });
+    {     
         $data           
-            ->addRule('text:min=2','title')                        
-            ->validate();       
+            ->addRule('text:min=2|required','title')                        
+            ->validate(true); 
+
+        $uuid = $data->get('uuid');
+        $model = Model::Ads('ads');
+
+        $exists = $model->where('title','=',$data['title'])->where('uuid','<>',$uuid)->exists();
+        if ($exists == true) {
+            $this->error('errors.exist');
+            return;
+        }
+
+        $ad = $model->findById($uuid);
+        $result = $ad->update($data->toArray());
+            
+        $this->setResponse($result,function() use($uuid) {                                
+            $this
+                ->message('update')
+                ->field('uuid',$uuid);                         
+        },'errors.update');      
     }
    
     /**
@@ -120,18 +107,18 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
     */
     public function deleteController($request, $response, $data)
     { 
-        $this->onDataValid(function($data) {
-            $uuid = $data->get('uuid');
-            $model = Model::Ads('ads')->findByid($uuid);
+        $data->validate(true);
 
-            $result = $model->delete();
-            $this->setResponse($result,function() use($uuid) {            
-                $this
-                    ->message('delete')
-                    ->field('uuid',$uuid);  
-            },'errors.delete');
-        }); 
-        $data->validate();
+        $uuid = $data->get('uuid');
+        $model = Model::Ads('ads')->findByid($uuid);
+
+        $result = $model->delete();
+
+        $this->setResponse(($result !== false),function() use($uuid) {            
+            $this
+                ->message('delete')
+                ->field('uuid',$uuid);  
+        },'errors.delete');
     }
 
     /**
@@ -144,26 +131,25 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
     */
     public function updateCodeController($request, $response, $data) 
     {       
-        $this->onDataValid(function($data) {
-            $uuid = $data->get('uuid');
-            $code = $data->get('code',null);
-            $model = Model::Ads('ads')->findById($uuid);
-            if (\is_object($model) == false) {
-                $this->error('errors.id');
-                return;
-            }
- 
-            $result = $model->update(['code' => $code]);
-               
-            $this->setResponse($result,function() use($model) {                                
-                $this
-                    ->message('update')
-                    ->field('uuid',$model->uuid);                         
-            },'errors.update');
-        });
         $data           
-            ->addRule('text:min=2','uuid')                        
-            ->validate();       
+            ->addRule('text:min=2','uuid')                                         
+            ->validate(true);   
+
+        $uuid = $data->get('uuid');
+        $code = $data->get('code',null);
+        $model = Model::Ads('ads')->findById($uuid);
+        if ($model == null) {
+            $this->error('errors.id');
+            return;
+        }
+
+        $result = $model->update(['code' => $code]);
+            
+        $this->setResponse($result,function() use($model) {                                
+            $this
+                ->message('update')
+                ->field('uuid',$model->uuid);                         
+        },'errors.update');    
     }
 
     /**
@@ -176,25 +162,24 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
     */
     public function updateBannerController($request, $response, $data) 
     {       
-        $this->onDataValid(function($data) {
-            $uuid = $data->get('uuid');
-            $linkUrl = $data->get('link_url',null);
-            $model = Model::Ads('ads')->findById($uuid);
-            if (\is_object($model) == false) {
-                $this->error('errors.id');
-                return;
-            }
- 
-            $result = $model->update(['link_url' => $linkUrl]);
-               
-            $this->setResponse($result,function() use($model) {                                
-                $this
-                    ->message('update')
-                    ->field('uuid',$model->uuid);                         
-            },'errors.update');
-        });
         $data           
             ->addRule('text:min=2','uuid')                        
-            ->validate();       
+            ->validate(true);      
+
+        $uuid = $data->get('uuid');
+        $linkUrl = $data->get('link_url',null);
+        $model = Model::Ads('ads')->findById($uuid);
+        if ($model == null) {
+            $this->error('errors.id');
+            return;
+        }
+
+        $result = $model->update(['link_url' => $linkUrl]);
+            
+        $this->setResponse(($result !== false),function() use($model) {                                
+            $this
+                ->message('update')
+                ->field('uuid',$model->uuid);                         
+        },'errors.update');    
     }
 }

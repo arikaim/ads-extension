@@ -39,7 +39,7 @@ class AdsApi extends ApiController
     {       
         $code = $data->get('code'); 
         $model = Model::Ads('ads')->findAd($code);
-        if (\is_object($model) == false) {
+        if ($model == null) {
             $this->error('Not valid ads id');
             return $this->getResponse(); 
         }
