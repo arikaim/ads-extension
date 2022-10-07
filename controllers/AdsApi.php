@@ -41,12 +41,12 @@ class AdsApi extends ApiController
         $model = Model::Ads('ads')->findAd($code);
         if ($model == null) {
             $this->error('Not valid ads id');
-            return $this->getResponse(); 
+            return false; 
         }
          
         if (Url::isValid($model->link_url) == false) {
             $this->error('Not valid ads link url.');
-            return $this->getResponse(); 
+            return false; 
         }
 
         $model->increment('views');

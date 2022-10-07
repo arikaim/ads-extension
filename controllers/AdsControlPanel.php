@@ -42,7 +42,7 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
      * @param Validator $data
      * @return Psr\Http\Message\ResponseInterface
     */
-    public function addController($request, $response, $data) 
+    public function add($request, $response, $data) 
     {       
         $data           
             ->addRule('text:min=2|required','title')           
@@ -52,16 +52,18 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
         
         if ($model->hasAd($data['title']) == true) {
             $this->error('errors.exist');
-            return;
+            return false;
         }
 
         $newModel = $model->createAd($data['title'],$data['code'],$data['description']);
-                
-        $this->setResponse(\is_object($newModel),function() use($newModel) {                                
-            $this
-                ->message('add')
-                ->field('uuid',$newModel->uuid);                         
-        },'errors.add');
+        if (\is_object($newModel) == false) {
+            $this->error('errors.add');
+            return false;
+        }
+                                  
+        $this
+            ->message('add')
+            ->field('uuid',$newModel->uuid);                         
     }
 
     /**
@@ -72,7 +74,7 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
      * @param Validator $data
      * @return Psr\Http\Message\ResponseInterface
     */
-    public function updateController($request, $response, $data) 
+    public function update($request, $response, $data) 
     {     
         $data           
             ->addRule('text:min=2|required','title')                        
@@ -84,7 +86,7 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
         $exists = $model->where('title','=',$data['title'])->where('uuid','<>',$uuid)->exists();
         if ($exists == true) {
             $this->error('errors.exist');
-            return;
+            return false;
         }
 
         $ad = $model->findById($uuid);
@@ -105,7 +107,7 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
      * @param Validator $data
      * @return Psr\Http\Message\ResponseInterface
     */
-    public function deleteController($request, $response, $data)
+    public function delete($request, $response, $data)
     { 
         $data->validate(true);
 
@@ -129,7 +131,7 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
      * @param Validator $data
      * @return Psr\Http\Message\ResponseInterface
     */
-    public function updateCodeController($request, $response, $data) 
+    public function updateCode($request, $response, $data) 
     {       
         $data           
             ->addRule('text:min=2','uuid')                                         
@@ -139,8 +141,8 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
         $code = $data->get('code',null);
         $model = Model::Ads('ads')->findById($uuid);
         if ($model == null) {
-            $this->error('errors.id');
-            return;
+            $this->error('errors.id','Not valid ads id.');
+            return false;
         }
 
         $result = $model->update(['code' => $code]);
@@ -160,7 +162,7 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
      * @param Validator $data
      * @return Psr\Http\Message\ResponseInterface
     */
-    public function updateBannerController($request, $response, $data) 
+    public function updateBanner($request, $response, $data) 
     {       
         $data           
             ->addRule('text:min=2','uuid')                        
@@ -171,7 +173,7 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
         $model = Model::Ads('ads')->findById($uuid);
         if ($model == null) {
             $this->error('errors.id');
-            return;
+            return false;
         }
 
         $result = $model->update(['link_url' => $linkUrl]);
