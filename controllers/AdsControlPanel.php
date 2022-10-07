@@ -135,7 +135,7 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
     {       
         $data           
             ->addRule('text:min=2','uuid')                                         
-            ->validate(true);   
+            ->validate();   
 
         $uuid = $data->get('uuid');
         $code = $data->get('code',null);
