@@ -133,25 +133,27 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
     */
     public function updateCode($request, $response, $data) 
     {       
+        $this->onDataValid(function($data) { 
+            $uuid = $data->get('uuid');
+            $code = $data->get('code',null);
+            $model = Model::Ads('ads')->findById($uuid);
+            if ($model == null) {
+                $this->error('errors.id','Not valid ads id.');
+                return false;
+            }
+
+            $result = $model->update(['code' => $code]);
+                
+            $this->setResponse($result,function() use($model) {                                
+                $this
+                    ->message('update')
+                    ->field('uuid',$model->uuid);                         
+            },'errors.update');  
+        });
+        
         $data           
             ->addRule('text:min=2','uuid')                                         
             ->validate();   
-
-        $uuid = $data->get('uuid');
-        $code = $data->get('code',null);
-        $model = Model::Ads('ads')->findById($uuid);
-        if ($model == null) {
-            $this->error('errors.id','Not valid ads id.');
-            return false;
-        }
-
-        $result = $model->update(['code' => $code]);
-            
-        $this->setResponse($result,function() use($model) {                                
-            $this
-                ->message('update')
-                ->field('uuid',$model->uuid);                         
-        },'errors.update');    
     }
 
     /**
@@ -164,24 +166,27 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
     */
     public function updateBanner($request, $response, $data) 
     {       
+        $this->onDataValid(function($data) { 
+            $uuid = $data->get('uuid');
+            $linkUrl = $data->get('link_url',null);
+            $model = Model::Ads('ads')->findById($uuid);
+            if ($model == null) {
+                $this->error('errors.id');
+                return false;
+            }
+
+            $result = $model->update(['link_url' => $linkUrl]);
+                
+            $this->setResponse(($result !== false),function() use($model) {                                
+                $this
+                    ->message('update')
+                    ->field('uuid',$model->uuid);                         
+            },'errors.update');  
+        });
+
         $data           
             ->addRule('text:min=2','uuid')                        
-            ->validate(true);      
+            ->validate();  
 
-        $uuid = $data->get('uuid');
-        $linkUrl = $data->get('link_url',null);
-        $model = Model::Ads('ads')->findById($uuid);
-        if ($model == null) {
-            $this->error('errors.id');
-            return false;
-        }
-
-        $result = $model->update(['link_url' => $linkUrl]);
-            
-        $this->setResponse(($result !== false),function() use($model) {                                
-            $this
-                ->message('update')
-                ->field('uuid',$model->uuid);                         
-        },'errors.update');    
     }
 }
