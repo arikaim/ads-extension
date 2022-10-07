@@ -42,7 +42,7 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
      * @param Validator $data
      * @return Psr\Http\Message\ResponseInterface
     */
-    public function add($request, $response, $data) 
+    public function addController($request, $response, $data) 
     {       
         $data           
             ->addRule('text:min=2|required','title')           
@@ -74,7 +74,7 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
      * @param Validator $data
      * @return Psr\Http\Message\ResponseInterface
     */
-    public function update($request, $response, $data) 
+    public function updateController($request, $response, $data) 
     {     
         $data           
             ->addRule('text:min=2|required','title')                        
@@ -107,7 +107,7 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
      * @param Validator $data
      * @return Psr\Http\Message\ResponseInterface
     */
-    public function delete($request, $response, $data)
+    public function deleteController($request, $response, $data)
     { 
         $data->validate(true);
 
@@ -131,7 +131,7 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
      * @param Validator $data
      * @return Psr\Http\Message\ResponseInterface
     */
-    public function updateCode($request, $response, $data) 
+    public function updateCodeController($request, $response, $data) 
     {       
         $this->onDataValid(function($data) { 
             $uuid = $data->get('uuid');
@@ -164,7 +164,7 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
      * @param Validator $data
      * @return Psr\Http\Message\ResponseInterface
     */
-    public function updateBanner($request, $response, $data) 
+    public function updateBannerController($request, $response, $data) 
     {       
         $this->onDataValid(function($data) { 
             $uuid = $data->get('uuid');
