@@ -1,6 +1,13 @@
 <div class="ui segment">
     <div class="ui stackable grid">
         <div class="ten wide column">
+            <button 
+                mountTo="ads_details"
+                component="ads::admin.create"
+                title="{{ tooltip.create }}"
+                class="ui mini curcular green icon button create-ad">
+                <i class="icon plus"></i>
+            </button>
         </div>
         <div class="six wide column right aligned">       
             {{ component('semantic~paginator.dropdown',{ class: 'mini', namespace: 'ads' }) }}

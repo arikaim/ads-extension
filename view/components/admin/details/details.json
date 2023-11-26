@@ -1,8 +1,6 @@
 {
-    "title": {
-        "content": "Details",
-        "icon": "info"
-    },
+    "title": "Details",  
+    "icon": "info",
     "labels": {      
         "title": "Title",
         "src": "Image Src",

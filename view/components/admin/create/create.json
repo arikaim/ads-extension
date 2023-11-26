@@ -1,6 +1,4 @@
 {   
-    "title": {
-        "content": "Create",
-        "icon": "plus"
-    }    
+    "title": "Create",
+    "icon": "plus"
 }

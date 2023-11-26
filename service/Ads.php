@@ -21,14 +21,12 @@ use Arikaim\Core\Service\ServiceInterface;
 class Ads extends Service implements ServiceInterface
 {
     /**
-     * Constructor
-     */
-    public function __construct(?ContainerInterface $container = null)
+     * Init service
+    */
+    public function boot()
     {
-        $this->includeServices(['image.library']);
         $this->setServiceName('ads');
-
-        parent::__construct($container);
+        $this->includeServices(['image.library']);
     }
 
     /**

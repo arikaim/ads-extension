@@ -17,6 +17,8 @@ function AdsView() {
     this.init = function() {
         this.loadMessages('ads::admin');
         paginator.init('ads_rows');    
+
+        arikaim.ui.loadComponentButton('.create-ad')
     };
 
     this.initRows = function() {    
@@ -45,10 +47,9 @@ function AdsView() {
 
         arikaim.ui.button('.edit-button',function(element) {
             var uuid = $(element).attr('uuid');
-            arikaim.ui.setActiveTab('#edit_ad','.ads-tab-item');
-
+        
             arikaim.page.loadContent({
-                id: 'ads_content',
+                id: 'ads_details',
                 component: 'ads::admin.edit',
                 params: { uuid: uuid }
             }); 
@@ -56,8 +57,6 @@ function AdsView() {
 
         arikaim.ui.button('.details-button',function(element) {
             var uuid = $(element).attr('uuid');
-         //   arikaim.ui.setActiveTab('#details_ad','.ads-tab-item');
-
             arikaim.page.loadContent({
                 id: 'ads_details',
                 component: 'ads::admin.details',

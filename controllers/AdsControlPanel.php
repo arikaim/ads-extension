@@ -56,8 +56,8 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
         }
 
         $newModel = $model->createAd($data['title'],$data['code'],$data['description']);
-        if (\is_object($newModel) == false) {
-            $this->error('errors.add');
+        if ($newModel == null) {
+            $this->error('errors.add','Error create ad');
             return false;
         }
                                   
@@ -133,27 +133,25 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
     */
     public function updateCodeController($request, $response, $data) 
     {       
-        $this->onDataValid(function($data) { 
-            $uuid = $data->get('uuid');
-            $code = $data->get('code',null);
-            $model = Model::Ads('ads')->findById($uuid);
-            if ($model == null) {
-                $this->error('errors.id','Not valid ads id.');
-                return false;
-            }
-
-            $result = $model->update(['code' => $code]);
-                
-            $this->setResponse($result,function() use($model) {                                
-                $this
-                    ->message('update')
-                    ->field('uuid',$model->uuid);                         
-            },'errors.update');  
-        });
-        
         $data           
             ->addRule('text:min=2','uuid')                                         
-            ->validate();   
+            ->validate(true);   
+       
+        $uuid = $data->get('uuid');
+        $code = $data->get('code',null);
+        $model = Model::Ads('ads')->findById($uuid);
+        if ($model == null) {
+            $this->error('errors.id','Not valid ads id.');
+            return false;
+        }
+
+        $result = $model->update(['code' => $code]);
+            
+        $this->setResponse($result,function() use($model) {                                
+            $this
+                ->message('update')
+                ->field('uuid',$model->uuid);                         
+        },'errors.update');  
     }
 
     /**
@@ -166,27 +164,24 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
     */
     public function updateBannerController($request, $response, $data) 
     {       
-        $this->onDataValid(function($data) { 
-            $uuid = $data->get('uuid');
-            $linkUrl = $data->get('link_url',null);
-            $model = Model::Ads('ads')->findById($uuid);
-            if ($model == null) {
-                $this->error('errors.id');
-                return false;
-            }
-
-            $result = $model->update(['link_url' => $linkUrl]);
-                
-            $this->setResponse(($result !== false),function() use($model) {                                
-                $this
-                    ->message('update')
-                    ->field('uuid',$model->uuid);                         
-            },'errors.update');  
-        });
-
         $data           
             ->addRule('text:min=2','uuid')                        
-            ->validate();  
+            ->validate(true);  
+    
+        $uuid = $data->get('uuid');
+        $linkUrl = $data->get('link_url',null);
+        $model = Model::Ads('ads')->findById($uuid);
+        if ($model == null) {
+            $this->error('errors.id');
+            return false;
+        }
 
+        $result = $model->update(['link_url' => $linkUrl]);
+            
+        $this->setResponse(($result !== false),function() use($model) {                                
+            $this
+                ->message('update')
+                ->field('uuid',$model->uuid);                         
+        },'errors.update');  
     }
 }

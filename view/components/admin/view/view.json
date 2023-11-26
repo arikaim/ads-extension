@@ -1,7 +1,6 @@
 {
-    "title": {
-        "content": "View",
-        "icon": "list"              
+    "tooltip": {
+        "create": "Create Ad"  
     },
     "columns": {
         "action": "Action",    

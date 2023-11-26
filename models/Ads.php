@@ -70,6 +70,16 @@ class Ads extends Model
     }
 
     /**
+     * Code attribute 
+     *
+     * @return string
+     */
+    public function getCodeAttribute(): string
+    {
+        return $this->code ?? '';
+    }
+
+    /**
      * Return true if ads is banner
      *
      * @return boolean
@@ -112,12 +122,12 @@ class Ads extends Model
      * @param string $title
      * @param string|null $code
      * @param string|null $description
-     * @return Model|false
+     * @return Model|null
      */
-    public function createAd(string $title, ?string $code = null, ?string $description = null)
+    public function createAd(string $title, ?string $code = null, ?string $description = null): ?object
     {      
         if ($this->hasAd($title) == true) {
-            return false;
+            return null;
         }
 
         return $this->create([

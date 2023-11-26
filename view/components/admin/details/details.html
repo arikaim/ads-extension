@@ -1,6 +1,5 @@
 {% set ads = createModel('Ads','ads').findById(uuid) %} 
-<div class="ui segment">
-    {{ component('semantic~segment-title',{ title: title.content, icon: 'code' }) }}
+{% component 'semantic~panel' %}
     <div class="mt-4">
         <table class="ui very basic definition table">
             <thead>
@@ -36,12 +35,14 @@
                     <tr>
                         <td class="right aligned">{{ labels.code }}</td>
                         <td>
-                            {{  component('semantic~code',{ 
-                                    language: 'javascript', 
-                                    content: ads.code,
-                                    hide_copy: true 
-                                }) 
-                            }}
+                            {% if ads.code is not empty %}
+                                {{  component('semantic~code',{ 
+                                        language: 'javascript', 
+                                        content: ads.code,
+                                        hide_copy: true 
+                                    }) 
+                                }}
+                            {% endif %}
                         </td>
                     </tr>
                 {% else %}
@@ -78,4 +79,4 @@
             </tbody>
         </table>   
     </div>
-</div>
+{% endcomponent %}
