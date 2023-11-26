@@ -3,7 +3,7 @@
     <h4>{{ title }}</h4>  
     <div class="flex flex-row items-center w-full">     
         {% set image = service('image.library').getRelatedImage(ads.id,'ads') %}  
-        {% set target_path = service('image.library').getDefaultImagesPath(false,'ads') %}
+        {% set target_path = service('image.library').getDefaultImagesPath(true,'ads') %}
         {% if image is not empty %}         
             {{  component('image::admin.images.details.panel',{ 
                     image: image, 

@@ -35,7 +35,7 @@ class Ads extends Extension
         // Db tables
         $this->createDbTable('AdsSchema');  
         // Storage folder
-        $this->createStorageFolder('images/ads',true);
+        $this->createStorageFolder('public/images/ads',true);
         // Relation map 
         $this->addRelationMap('ads','Ads');
         // Services
