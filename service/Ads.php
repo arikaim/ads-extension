@@ -30,6 +30,21 @@ class Ads extends Service implements ServiceInterface
     }
 
     /**
+     * Undocumented function
+     *
+     * @param string|null $slug
+     * @return void
+    */
+    public function incrementViews(?string $slug = null): void
+    {
+        $model = Model::Ads('ads')->findAd($slug);
+
+        if ($model !== null) {
+            $model->increment('views');
+        }
+    }
+
+    /**
      * Gte ads code
      *
      * @param string|null $slug
@@ -46,7 +61,7 @@ class Ads extends Service implements ServiceInterface
      * @param string|null $slug
      * @return Model|null
      */
-    public function getAd(?string $slug = null)
+    public function getAd(?string $slug = null): ?object
     {
         return Model::Ads('ads')->findAd($slug);
     }
@@ -57,7 +72,7 @@ class Ads extends Service implements ServiceInterface
      * @param string|null $slug
      * @return Model|null
      */
-    public function getImage(?string $slug = null)
+    public function getImage(?string $slug = null): ?object
     {
         $model = Model::Ads('ads')->findAd($slug);
         if ($model == null) {

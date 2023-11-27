@@ -3,6 +3,7 @@
     "icon": "info",
     "labels": {      
         "title": "Title",
+        "views": "Views",
         "src": "Image Src",
         "status": "Status",
         "slug": "Slug",

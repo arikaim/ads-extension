@@ -1,19 +1,21 @@
-{% component 'semantic~tabs.vertical.content' %}
-    {% set library = package('library').getPackageProperties('adsense') %}
-    <div class="mt-4">      
-        {% if library['package-type'] is empty %}
-            <div class="ui warning message">{{ messages.library }}</div>
-        {% else %}
-            {% set package = package('library').createPackage('adsense') %}
-            {% set params = package.getLibraryParams() %}
-            <h4>{{ labels.adsense }}</h4>
-            {{  component('system:admin.libraries.library.params.form',{ 
-                    library: 'adsense',
-                    params_config: params.params,
-                    params: library.params,
-                    show_value: true 
-                }) 
-            }}
-        {% endif %}         
-    </div>
-{% endcomponent %}
+<div class="w-1/3 xs:w-full md:w-1/3">
+    {% component 'semantic~tabs.vertical.content' %}
+        {% set library = package('library').getPackageProperties('adsense') %}
+        <div class="mt-4">      
+            {% if library['package-type'] is empty %}
+                <div class="ui warning message">{{ messages.library }}</div>
+            {% else %}
+                {% set package = package('library').createPackage('adsense') %}
+                {% set params = package.getLibraryParams() %}
+                <h4>{{ labels.adsense }}</h4>
+                {{  component('system:admin.libraries.library.params.form',{ 
+                        library: 'adsense',
+                        params_config: params.params,
+                        params: library.params,
+                        show_value: true 
+                    }) 
+                }}
+            {% endif %}         
+        </div>
+    {% endcomponent %}
+</div>

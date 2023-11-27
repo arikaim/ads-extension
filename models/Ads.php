@@ -47,7 +47,9 @@ class Ads extends Model
         'slug',
         'title',
         'type',
+        'views',
         'link_url',
+        'user_id',
         'description',
         'status'      
     ];
