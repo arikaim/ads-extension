@@ -76,9 +76,9 @@ class Ads extends Model
      *
      * @return string
      */
-    public function getCodeAttribute(): string
+    public function getCodeTextAttribute()
     {
-        return $this->code ?? '';
+        return empty($this->code) ? '' : $this->code;
     }
 
     /**

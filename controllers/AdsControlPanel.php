@@ -139,13 +139,16 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
        
         $uuid = $data->get('uuid');
         $code = $data->get('code',null);
+
         $model = Model::Ads('ads')->findById($uuid);
         if ($model == null) {
             $this->error('errors.id','Not valid ads id.');
             return false;
         }
 
-        $result = $model->update(['code' => $code]);
+        $result = $model->update([
+            'code' => $code
+        ]);
             
         $this->setResponse($result,function() use($model) {                                
             $this

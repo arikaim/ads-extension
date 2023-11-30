@@ -41,10 +41,10 @@
                     <tr>
                         <td class="right aligned">{{ labels.code }}</td>
                         <td>
-                            {% if ads.code is not empty %}
+                            {% if ads.code_text is not empty %}
                                 {{  component('semantic~code',{ 
                                         language: 'javascript', 
-                                        content: ads.code,
+                                        content: ads.code_text,
                                         hide_copy: true 
                                     }) 
                                 }}
