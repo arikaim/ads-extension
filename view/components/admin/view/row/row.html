@@ -1,0 +1,41 @@
+{% if uuid is not empty %}
+    {% set item = createModel('Ads','ads').findById(uuid) %}
+{% endif %}
+<tr id="row_{{ item.uuid }}">
+    <td>
+        <button 
+            mountTo="ads_details"
+            component="ads::admin.help"
+            params="uuid:{{ item.uuid }}"
+            class="ui icon mini basic button ad-action" {{ buttons.help.title|attr('title') }}>
+            <i class="question circle outline icon"></i>
+        </button> 
+        <button class="ui icon mini basic button details-button" {{ buttons.details.title|attr('title') }} uuid="{{ item.uuid }}">
+            <i class="icon code blue"></i>
+        </button> 
+        {% if demo_mode == false %}
+        <button class="ui icon mini basic button edit-button" {{ buttons.edit.title|attr('title') }} uuid="{{ item.uuid }}">
+            <i class="icon edit"></i>
+        </button> 
+        <button class="ui icon mini basic button delete-button" {{ buttons.delete.title|attr('title') }} uuid="{{ item.uuid }}" data-title="{{ item.title }}">
+            <i class="icon trash orange"></i>
+        </button> 
+        {% else %}
+        <div class="ui basic red label">{{ labels.demo }}</div>
+        {% endif %}
+    </td>
+    <td>
+        {{ component('semantic~status.dropdown',{ status: item.status, uuid: item.uuid, skip: [2,3,4,5] }) }}         
+    </td>       
+    <td>
+        <div class="ui basic label">
+            {{ item.slug }}
+        </div>
+    </td>
+    <td>{{ item.title }}</td>
+    <td>
+        <div class="ui blue basic label">
+            {{ item.type|default('js') }}
+        </div>
+    </td>
+</tr>

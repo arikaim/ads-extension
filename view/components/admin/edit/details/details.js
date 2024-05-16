@@ -6,6 +6,8 @@ arikaim.component.onLoaded(function() {
     },function(result) { 
         var msg = result.message;
 
+        arikaim.events.emit('ads.update',result.uuid);  
+
         arikaim.page.loadContent({
             id: 'ads_tab_content',
             component: 'ads::admin.edit.tabs',

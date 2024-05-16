@@ -1,0 +1,19 @@
+{    
+    "buttons": {
+        "delete": {      
+            "content": "Delete",          
+            "title": "Delete ad"
+        },
+        "details": {      
+            "content": "Ad details",          
+            "title": "Ad details"
+        },
+        "help": {      
+            "content": "Get ad code",          
+            "title": "Get ad code"
+        }    
+    },
+    "labels": {
+        "demo": "demo mode"
+    }   
+}

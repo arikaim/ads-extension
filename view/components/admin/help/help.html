@@ -1,0 +1,14 @@
+{% set ads = createModel('Ads','ads').findById(uuid) %}
+{% set code = "{{ component('ads::view',{ slug: '" ~ ads.slug ~ "' }) }}" %} 
+{% component 'semantic~panel' %}
+    <div class="mt-4">
+        <h4>
+            {{ labels.code }}
+        </h4>
+        {{  component('semantic~code',{
+                content: code,
+                language: 'twig'
+            }) 
+        }}
+    </div>
+{% endcomponent %}

@@ -6,11 +6,6 @@
 */
 'use strict';
 
-/**
- * 
- * @class AdsView
- * @inherit ControlPanelView
- */
 function AdsView() {   
     var self = this;
 
@@ -19,10 +14,34 @@ function AdsView() {
         paginator.init('ads_rows');    
 
         arikaim.ui.loadComponentButton('.create-ad')
+        adsView.initRows();
+        
+        arikaim.events.on('ads.create',function(uuid) {
+            arikaim.page.loadContent({
+                id: 'ads_rows',
+                append: true,
+                component: 'ads::admin.view.row',
+                params: { uuid: uuid }
+            },function() {
+                self.initRows();
+            }); 
+        },'adsCreateHandler');
+
+        arikaim.events.on('ads.update',function(uuid) {
+            arikaim.page.loadContent({
+                id: 'row_' + uuid,
+                replace: true,
+                component: 'ads::admin.view.row',
+                params: { uuid: uuid }
+            },function() {
+                self.initRows();
+            }); 
+        },'adsUpdateHandler');
     };
 
     this.initRows = function() {    
-      
+        arikaim.ui.loadComponentButton('.ad-action')
+
         $('.status-dropdown').dropdown({
             onChange: function(value) {
                 var uuid = $(this).attr('uuid');
@@ -70,5 +89,4 @@ var adsView = createObject(AdsView,ControlPanelView);
 
 arikaim.component.onLoaded(function() {
     adsView.init();   
-    adsView.initRows();
 });

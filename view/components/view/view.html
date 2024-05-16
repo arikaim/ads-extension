@@ -1,0 +1,19 @@
+{% set ads = service('ads').getAd(slug) %}
+<div class="{{ class }}">  
+    {% if ads.code_text is empty and ads.isBanner() == false %}
+        {{ component('ads::view.empty',{ ads: ads }) }}
+    {% else %}
+        <div class="{{ class }}">
+            {% if ads.isBanner() == true %}
+                {% set image = service('image.library').getRelatedImage(ads.id,'ads') %} 
+                <div>
+                    <a class="{{ image_link_class }}" href="{{ ads.getLinkUrl() }}">
+                        <img src="{{ url(image.src) }}" class="{{ image_class }}">
+                    </a>
+                </div>             
+            {% else %}
+                {{ ads.code_text }}     
+            {% endif %}   
+        </div> 
+    {% endif %}
+</div>

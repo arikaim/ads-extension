@@ -11,5 +11,7 @@ Ads manager extension for Arikaim CMS
 #### Installation
 
 ```sh
+
 composer require arikaim/ads-extension
+
 ```
