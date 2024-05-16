@@ -1,5 +1,5 @@
 'use strict';
 
 arikaim.component.onLoaded(function() {
-    arikaim.ui.tab('.edit-ads-tab-item','ads_edit_content');
+    arikaim.ui.tab('.edit-ads-tab-item','ads_edit_content',['uuid']);
 });

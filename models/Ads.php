@@ -156,6 +156,6 @@ class Ads extends Model
             return null;
         }
      
-        return \trim($model->code);
+        return \trim($model->code ?? '');
     }
 }

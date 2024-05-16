@@ -33,7 +33,7 @@ class Ads extends Extension
         // Api
         $this->addApiRoute('GET','/api/ads/link/{code}','AdsApi','openLink',null);   
         // Db tables
-        $this->createDbTable('AdsSchema');  
+        $this->createDbTable('Ads');  
         // Storage folder
         $this->createStorageFolder('public/images/ads',true);
         // Relation map 

@@ -133,7 +133,8 @@ class AdsControlPanel extends ControlPanelApiController implements ControlPanelA
     */
     public function updateCodeController($request, $response, $data) 
     {       
-        $data           
+        $data         
+            ->removeFilter('Sanitize')  
             ->addRule('text:min=2','uuid')                                         
             ->validate(true);   
        

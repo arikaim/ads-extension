@@ -4,7 +4,8 @@
         <input type="hidden" name="uuid" id="uuid" value="{{ uuid }}"> 
         <div class="field ads-type" id="js_type">
             <label>{{ fields.code.label }}</label>
-            <textarea name="code" id="code" rows="10" cols="10" {{ fields.code.placeholder|attr('placeholder') }}>{{ ads.code }}</textarea>        
+            <textarea name="code" id="code" rows="10" cols="10" 
+                {{ fields.code.placeholder|attr('placeholder') }}>{{ ads.code }}</textarea>        
         </div>
         {% if demo_mode != true %}                 
             {{ component('semantic~form.footer') }}
